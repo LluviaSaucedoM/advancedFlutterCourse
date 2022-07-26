@@ -14,3 +14,11 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+
+## Screen view
+- Animation
+<p align="center">
+  <img src="assets/glance/pantalla.1.png" width="350" hight="400">
+  <img src="assets/glance/pantalla.1.2.png" width="350" hight="400">
+ </p> 

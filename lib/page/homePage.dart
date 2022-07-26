@@ -25,45 +25,47 @@ class _HomePageState extends State<HomePage> {
         onTap: () {
           FocusScope.of(context).unfocus();
         },
-        child: Container(
-          width: double.infinity,
-          height: double.infinity,
-          color: Colors.white,
-          child: Stack(alignment: Alignment.center, children: <Widget>[
-            Positioned(
-              top: -(pinkSize) * 0.4,
-              right: -(pinkSize) * 0.2,
-              child: Circle(
-                size: pinkSize,
-                colors: const [Colors.pinkAccent, Colors.pink],
+        child: SingleChildScrollView(
+          child: Container(
+            width: double.infinity,
+            height: responsive.heigth,
+            color: Colors.white,
+            child: Stack(alignment: Alignment.center, children: <Widget>[
+              Positioned(
+                top: -(pinkSize) * 0.4,
+                right: -(pinkSize) * 0.2,
+                child: Circle(
+                  size: pinkSize,
+                  colors: const [Colors.pinkAccent, Colors.pink],
+                ),
               ),
-            ),
-            Positioned(
-              top: -(orangeSize) * 0.5,
-              left: -(orangeSize) * 0.15,
-              child: Circle(
-                size: orangeSize,
-                colors: const [Colors.orange, Colors.deepOrangeAccent],
+              Positioned(
+                top: -(orangeSize) * 0.5,
+                left: -(orangeSize) * 0.15,
+                child: Circle(
+                  size: orangeSize,
+                  colors: const [Colors.orange, Colors.deepOrangeAccent],
+                ),
               ),
-            ),
-            Positioned(
-              top: pinkSize * 0.37,
-              child: Column(
-                children: [
-                  IconContainer(size: responsive.wp(17)),
-                  SizedBox(
-                    height: responsive.dp(3),
-                  ),
-                  Text(
-                    'Hello Again\n Welcome Back!',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: responsive.dp(1.6)),
-                  ),
-                ],
+              Positioned(
+                top: pinkSize * 0.37,
+                child: Column(
+                  children: [
+                    IconContainer(size: responsive.wp(17)),
+                    SizedBox(
+                      height: responsive.dp(3),
+                    ),
+                    Text(
+                      'Hello Again\n Welcome Back!',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: responsive.dp(1.6)),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            LoginForm(),
-          ]),
+              const LoginForm(),
+            ]),
+          ),
         ),
       ),
     );

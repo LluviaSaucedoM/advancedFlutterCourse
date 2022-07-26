@@ -5,10 +5,12 @@ class Responsive {
   late double _width;
   late double _height;
   late double _diagonal;
+  late bool _isTablet;
 
   double get width => _width;
   double get heigth => _height;
   double get diagonal => _diagonal;
+  bool get isTablet => _isTablet;
 
   static Responsive of(BuildContext context) => Responsive(context);
 
@@ -18,6 +20,8 @@ class Responsive {
     _width = size.width;
     _height = size.height;
     _diagonal = math.sqrt(math.pow(_width, 2) + math.pow(_height, 2));
+
+    _isTablet = size.shortestSide >= 600;
   }
 
   dynamic wp(double porcen) => _width * porcen / 100;
