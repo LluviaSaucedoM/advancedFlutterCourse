@@ -20,7 +20,7 @@ flutter:
 
   uses-material-design: true
   assets:
-    - assets/slide-4.svg
+    - assets/slide-6.svg
 
   # example:
   # fonts:
