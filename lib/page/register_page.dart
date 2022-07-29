@@ -5,6 +5,7 @@ import 'package:flutter_api_rest/utils/responsive.dart';
 import 'package:flutter_api_rest/widgets/circle.dart';
 
 import '../widgets/avatarButton.dart';
+import '../widgets/registerForm.dart';
 
 class RegisterPage extends StatefulWidget {
   static const routeName = 'register';
@@ -73,7 +74,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     ],
                   ),
                 ),
-                //  RegisterForm(),
+                const RegisterForm(),
                 Positioned(
                   left: 15,
                   top: 10,

@@ -21,4 +21,5 @@ samples, guidance on mobile development, and a full API reference.
 <p align="center"> 
   <img src="assets/glance/pantalla.1.2.png" width="500" hight="500">
   <img src="assets/glance/pantalla.1.png" width="250" hight="350"> 
+  <img src="assets/glance/pantalla.2.png" width="250" hight="350"> 
 </p> 

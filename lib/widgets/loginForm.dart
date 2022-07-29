@@ -15,6 +15,7 @@ class _LoginFormState extends State<LoginForm> {
   final GlobalKey<FormState> _formkey = GlobalKey();
   String email = '';
   String password = '';
+
   _submit() {
     final isOk = _formkey.currentState?.validate();
     debugPrint("is ookey : $isOk");
@@ -93,9 +94,8 @@ class _LoginFormState extends State<LoginForm> {
                 child: TextButton(
                   onPressed: _submit,
                   style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color>(
-                        const Color.fromARGB(255, 229, 55, 148)),
-                  ),
+                      backgroundColor:
+                          MaterialStateProperty.all<Color>(Colors.pinkAccent)),
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 10),
                     child: Text(
@@ -126,7 +126,7 @@ class _LoginFormState extends State<LoginForm> {
                         'Sing Up',
                         style: TextStyle(
                             fontSize: responsive.dp(1.5),
-                            color: const Color.fromARGB(255, 229, 55, 148),
+                            color: Colors.pinkAccent,
                             fontWeight: FontWeight.bold),
                       ),
                     ),
