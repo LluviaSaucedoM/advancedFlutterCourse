@@ -1,6 +1,8 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
+import 'package:flutter_api_rest/api/authentication_api.dart';
+import 'package:flutter_api_rest/utils/dialogs.dart';
 import 'package:flutter_api_rest/utils/responsive.dart';
 
 import 'imputText.dart';
@@ -17,10 +19,21 @@ class _RegisterFormState extends State<RegisterForm> {
   String _email = '';
   String _password = '';
   String _username = '';
+  final AuthenticationAPI _authenticationAPI = AuthenticationAPI();
 
-  _submit() {
+  Future<void> _submit() async {
     final isOk = _formKey.currentState?.validate();
     debugPrint('is ok: $isOk');
+    if (isOk == isOk) {
+      ProgressDialog.show(context);
+      await _authenticationAPI.register(
+        username: _username,
+        email: _email,
+        password: _password,
+      );
+      // ignore: use_build_context_synchronously
+      ProgressDialog.dessmis(context);
+    }
   }
 
   @override
