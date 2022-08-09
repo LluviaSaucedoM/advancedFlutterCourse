@@ -1,9 +1,12 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, use_build_context_synchronously
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_api_rest/api/authentication_api.dart';
+import 'package:flutter_api_rest/page/home_page.dart';
 import 'package:flutter_api_rest/utils/dialogs.dart';
 import 'package:flutter_api_rest/utils/responsive.dart';
+import 'package:logger/logger.dart';
 
 import 'imputText.dart';
 
@@ -16,23 +19,45 @@ class RegisterForm extends StatefulWidget {
 
 class _RegisterFormState extends State<RegisterForm> {
   final GlobalKey<FormState> _formKey = GlobalKey();
+  final AuthenticationAPI _authenticationAPI = AuthenticationAPI();
+  final Logger _logger = Logger();
   String _email = '';
   String _password = '';
   String _username = '';
-  final AuthenticationAPI _authenticationAPI = AuthenticationAPI();
 
   Future<void> _submit() async {
-    final isOk = _formKey.currentState?.validate();
-    debugPrint('is ok: $isOk');
-    if (isOk == isOk) {
+    final isOk = _formKey.currentState!.validate();
+    debugPrint("forma: $isOk");
+    if (isOk) {
       ProgressDialog.show(context);
-      await _authenticationAPI.register(
+      final response = await _authenticationAPI.register(
         username: _username,
         email: _email,
         password: _password,
       );
-      // ignore: use_build_context_synchronously
+
       ProgressDialog.dessmis(context);
+      if (response.data != null) {
+        _logger.i('register ok::: ${response.data}');
+        Navigator.pushNamedAndRemoveUntil(
+          context,
+          HomePage.routeName,
+          (_) => false,
+          // (route) => route.settings.name == 'perfil',
+        );
+      } else {
+        _logger.e('register error statusCode: ${response.error.statusCode}');
+        _logger.e('register error message: ${response.error.message}');
+        _logger.e('register error data: ${response.error.data}');
+        String message = response.error.message;
+        if (response.error.statusCode == -1) {
+          message = 'Bad network';
+        } else if (response.error.statusCode == 409) {
+          message =
+              'Duplicate User ${jsonEncode(response.error.data['duplicatedFields'])}';
+        }
+        Dialogs.alert(context, description: 'ERROR', title: message);
+      }
     }
   }
 
@@ -83,6 +108,7 @@ class _RegisterFormState extends State<RegisterForm> {
               ImputText(
                 keyboardType: TextInputType.emailAddress,
                 label: "PASSWORD",
+                obsuredText: true,
                 fontSize: responsive.dp(responsive.isTablet ? 1.2 : 1.4),
                 onChanged: (text) {
                   _password = text;

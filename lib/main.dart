@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 
 import 'package:flutter_api_rest/page/login_page.dart';
 import 'package:flutter_api_rest/page/register_page.dart';
+import 'package:flutter_api_rest/page/home_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
       routes: {
         RegisterPage.routeName: (_) => const RegisterPage(),
         LoginPage.routeName: (_) => const LoginPage(),
+        HomePage.routeName: (_) => const HomePage(),
       },
     );
   }
