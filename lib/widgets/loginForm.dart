@@ -1,10 +1,13 @@
 // ignore_for_file: file_names, use_build_context_synchronously
+import 'package:get_it/get_it.dart';
 import 'package:flutter/material.dart';
+
 import 'package:flutter_api_rest/api/authentication_api.dart';
 import 'package:flutter_api_rest/utils/dialogs.dart';
 import 'package:flutter_api_rest/utils/responsive.dart';
 
-import '../page/home_page.dart';
+import 'package:flutter_api_rest/page/home_page.dart';
+
 import 'imputText.dart';
 
 class LoginForm extends StatefulWidget {
@@ -16,7 +19,6 @@ class LoginForm extends StatefulWidget {
 
 class _LoginFormState extends State<LoginForm> {
   final GlobalKey<FormState> _formkey = GlobalKey();
-  final AuthenticationAPI _authenticationAPI = AuthenticationAPI();
 
   String email = '';
   String password = '';
@@ -26,7 +28,8 @@ class _LoginFormState extends State<LoginForm> {
     debugPrint("is ookey : $isOk");
     if (isOk) {
       ProgressDialog.show(context);
-      final response = await _authenticationAPI.login(
+      final authenticationAPI = GetIt.instance<AuthenticationAPI>();
+      final response = await authenticationAPI.login(
         email: email,
         password: password,
       );

@@ -1,12 +1,14 @@
 // ignore_for_file: file_names, use_build_context_synchronously
 import 'dart:convert';
-
+import 'package:get_it/get_it.dart';
+import 'package:logger/logger.dart';
 import 'package:flutter/material.dart';
+
 import 'package:flutter_api_rest/api/authentication_api.dart';
+import 'package:flutter_api_rest/utils/responsive.dart';
+
 import 'package:flutter_api_rest/page/home_page.dart';
 import 'package:flutter_api_rest/utils/dialogs.dart';
-import 'package:flutter_api_rest/utils/responsive.dart';
-import 'package:logger/logger.dart';
 
 import 'imputText.dart';
 
@@ -18,7 +20,6 @@ class RegisterForm extends StatefulWidget {
 
 class _RegisterFormState extends State<RegisterForm> {
   final GlobalKey<FormState> _formKey = GlobalKey();
-  final AuthenticationAPI _authenticationAPI = AuthenticationAPI();
   final Logger _logger = Logger();
   String _email = '';
   String _password = '';
@@ -29,7 +30,8 @@ class _RegisterFormState extends State<RegisterForm> {
     debugPrint("forma: $isOk");
     if (isOk) {
       ProgressDialog.show(context);
-      final response = await _authenticationAPI.register(
+      final authenticationAPI = GetIt.instance<AuthenticationAPI>();
+      final response = await authenticationAPI.register(
         username: _username,
         email: _email,
         password: _password,
