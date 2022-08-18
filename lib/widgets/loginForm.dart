@@ -38,12 +38,12 @@ class _LoginFormState extends State<LoginForm> {
         Navigator.pushNamedAndRemoveUntil(
             context, HomePage.routeName, (_) => false);
       } else {
-        String message = response.error.message;
-        if (response.error.statusCode == -1) {
+        String message = response.error!.message;
+        if (response.error?.statusCode == -1) {
           message = 'Bad network';
-        } else if (response.error.statusCode == 403) {
+        } else if (response.error?.statusCode == 403) {
           message = 'Invalid Password';
-        } else if (response.error.statusCode == 404) {
+        } else if (response.error?.statusCode == 404) {
           message = 'User not found';
         }
         Dialogs.alert(context, description: message, title: 'ERROR');

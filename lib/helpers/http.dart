@@ -18,12 +18,13 @@ class Http {
     _logsEnabled = logsEnabled;
   }
 
-  Future<HttpResponse> request(
+  Future<HttpResponse<T>> request<T>(
     String path, {
     String method = 'GET',
     Map<String, dynamic>? queryParameters,
     Map<String, dynamic>? data,
     Map<String, String>? headers,
+    T Function(dynamic data)? parser,
   }) async {
     try {
       final response = await _dio.request(
@@ -36,11 +37,14 @@ class Http {
         data: data,
       );
       _logger.i(response.data);
-      return HttpResponse.success(response.data);
+      if (parser != null) {
+        return HttpResponse.success<T>(parser(response.data));
+      }
+      return HttpResponse.success<T>(response.data);
     } catch (e) {
       _logger.e(e);
 
-      int statusCode = -1; //sin acceso a internet
+      int statusCode = 0; //sin acceso a internet
       String message = 'unknown error';
       dynamic data;
 
@@ -54,7 +58,7 @@ class Http {
           data = res.data;
         }
       }
-      return HttpResponse.fail(
+      return HttpResponse.fail<T>(
           statusCode: statusCode, message: message, data: data);
     }
   }

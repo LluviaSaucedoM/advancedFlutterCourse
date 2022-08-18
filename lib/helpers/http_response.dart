@@ -1,11 +1,11 @@
-class HttpResponse {
-  final dynamic data;
-  final dynamic error;
+class HttpResponse<T> {
+  final T? data;
+  final HttpError? error;
 
   HttpResponse(this.data, this.error);
 
-  static HttpResponse success(dynamic data) => HttpResponse(data, null);
-  static HttpResponse fail({
+  static HttpResponse<T> success<T>(T data) => HttpResponse(data, null);
+  static HttpResponse<T> fail<T>({
     required int statusCode,
     required String message,
     required dynamic data,

@@ -47,15 +47,15 @@ class _RegisterFormState extends State<RegisterForm> {
           // (route) => route.settings.name == 'perfil',
         );
       } else {
-        _logger.e('register error statusCode: ${response.error.statusCode}');
-        _logger.e('register error message: ${response.error.message}');
-        _logger.e('register error data: ${response.error.data}');
-        String message = response.error.message;
-        if (response.error.statusCode == -1) {
+        _logger.e('register error statusCode: ${response.error?.statusCode}');
+        _logger.e('register error message: ${response.error?.message}');
+        _logger.e('register error data: ${response.error?.data}');
+        String message = response.error!.message;
+        if (response.error?.statusCode == -1) {
           message = 'Bad network';
-        } else if (response.error.statusCode == 409) {
+        } else if (response.error?.statusCode == 409) {
           message =
-              'Duplicate User ${jsonEncode(response.error.data['duplicatedFields'])}';
+              'Duplicate User ${jsonEncode(response.error?.data['duplicatedFields'])}';
         }
         Dialogs.alert(context, description: 'ERROR', title: message);
       }
