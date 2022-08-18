@@ -12,7 +12,6 @@ import 'imputText.dart';
 
 class RegisterForm extends StatefulWidget {
   const RegisterForm({Key? key}) : super(key: key);
-
   @override
   State<RegisterForm> createState() => _RegisterFormState();
 }

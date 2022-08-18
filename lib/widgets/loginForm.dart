@@ -1,7 +1,10 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, use_build_context_synchronously
 import 'package:flutter/material.dart';
+import 'package:flutter_api_rest/api/authentication_api.dart';
+import 'package:flutter_api_rest/utils/dialogs.dart';
 import 'package:flutter_api_rest/utils/responsive.dart';
 
+import '../page/home_page.dart';
 import 'imputText.dart';
 
 class LoginForm extends StatefulWidget {
@@ -13,13 +16,36 @@ class LoginForm extends StatefulWidget {
 
 class _LoginFormState extends State<LoginForm> {
   final GlobalKey<FormState> _formkey = GlobalKey();
+  final AuthenticationAPI _authenticationAPI = AuthenticationAPI();
+
   String email = '';
   String password = '';
 
-  _submit() {
-    final isOk = _formkey.currentState?.validate();
+  Future<void> _submit() async {
+    final isOk = _formkey.currentState!.validate();
     debugPrint("is ookey : $isOk");
-    // if(isOk){}
+    if (isOk) {
+      ProgressDialog.show(context);
+      final response = await _authenticationAPI.login(
+        email: email,
+        password: password,
+      );
+      ProgressDialog.dessmis(context);
+      if (response.data != null) {
+        Navigator.pushNamedAndRemoveUntil(
+            context, HomePage.routeName, (_) => false);
+      } else {
+        String message = response.error.message;
+        if (response.error.statusCode == -1) {
+          message = 'Bad network';
+        } else if (response.error.statusCode == 403) {
+          message = 'Invalid Password';
+        } else if (response.error.statusCode == 404) {
+          message = 'User not found';
+        }
+        Dialogs.alert(context, description: message, title: 'ERROR');
+      }
+    }
   }
 
   @override
