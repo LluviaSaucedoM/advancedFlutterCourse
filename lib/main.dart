@@ -6,6 +6,7 @@ import 'package:flutter_api_rest/helpers/dependency_injection.dart';
 import 'package:flutter_api_rest/page/login_page.dart';
 import 'package:flutter_api_rest/page/register_page.dart';
 import 'package:flutter_api_rest/page/home_page.dart';
+import 'package:flutter_api_rest/page/splash_page.dart';
 
 void main() {
   DependencyInjection.initialize();
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const LoginPage(),
+      home: const SplashPage(),
       routes: {
         RegisterPage.routeName: (_) => const RegisterPage(),
         LoginPage.routeName: (_) => const LoginPage(),
