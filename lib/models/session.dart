@@ -19,7 +19,7 @@ class Session {
     return {
       'token': token,
       'expiresIn': expiresIn,
-      'createdAt': createdAt.toString()
+      'createdAt': createdAt.toIso8601String()
     };
   }
 }
