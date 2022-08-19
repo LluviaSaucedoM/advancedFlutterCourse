@@ -36,14 +36,12 @@ class Http {
         queryParameters: queryParameters,
         data: data,
       );
-      _logger.i(response.data);
+
       if (parser != null) {
         return HttpResponse.success<T>(parser(response.data));
       }
       return HttpResponse.success<T>(response.data);
     } catch (e) {
-      _logger.e(e);
-
       int statusCode = 0; //sin acceso a internet
       String message = 'unknown error';
       dynamic data;
